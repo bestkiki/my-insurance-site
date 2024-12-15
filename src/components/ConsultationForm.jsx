@@ -18,7 +18,7 @@ const ConsultationForm = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(https://script.google.com/macros/s/AKfycbzfiVt6jmVX2pIIq30ArKPZ8kYmexOy_snk_rrJc0yp9TdV_jn2jp-2Em8h7dCSGQ40/exec, {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbzfiVt6jmVX2pIIq30ArKPZ8kYmexOy_snk_rrJc0yp9TdV_jn2jp-2Em8h7dCSGQ40/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
