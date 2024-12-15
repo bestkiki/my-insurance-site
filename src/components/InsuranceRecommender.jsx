@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';  // useState 추가
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Compass, Heart, Dog, Car } from 'lucide-react';
-import ConsultationForm from './ConsultationForm';  // 파일 상단에 추가
-
+import ConsultationForm from './ConsultationForm';  // 추가
 
 const InsuranceRecommender = () => {
   const [selectedLifestyle, setSelectedLifestyle] = useState(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);  // 추가
 
-  
   const lifestyleOptions = [
     {
       id: 'travel',
@@ -56,7 +54,7 @@ const InsuranceRecommender = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-4">나의 라이프스타일에 맞는 보험 찾아볼까요</h1>
+        <h1 className="text-3xl font-bold mb-4">나의 라이프스타일에 맞는 보험 찾기</h1>
         <p className="text-gray-600">당신의 라이프스타일을 선택하고 맞춤 보험 상품을 확인하세요</p>
       </div>
 
@@ -99,33 +97,28 @@ const InsuranceRecommender = () => {
         </Card>
       )}
 
-      <div className="bg-blue-50 p-6 rounded-lg">
+<div className="bg-blue-50 p-6 rounded-lg">
         <h3 className="font-semibold mb-4">전문 상담사와 상담하기</h3>
         <p className="text-gray-600 mb-4">
           더 자세한 상담이 필요하신가요? 전문 상담사가 도와드립니다.
         </p>
-        // 무료 상담 예약하기 버튼 부분 수정
         <Button 
           variant="outline" 
           className="w-full"
-          onClick={() => setIsFormOpen(true)}
+          onClick={() => setIsFormOpen(true)}  // 수정
         >
           무료 상담 예약하기
         </Button>
       </div>
-    </div>
-      // return 문 맨 마지막에 추가 (마지막 </div> 바로 앞)
+      {/* 폼 컴포넌트 추가 */}
       {isFormOpen && (
         <ConsultationForm 
           isOpen={isFormOpen} 
           onClose={() => setIsFormOpen(false)} 
         />
       )}
+    </div>
   );
-
-
-
-
 };
 
 export default InsuranceRecommender;
