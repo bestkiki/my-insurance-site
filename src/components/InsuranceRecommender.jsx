@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Compass, Heart, Dog, Car, Home, Baby } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
+import { Button } from './ui/button';
+import { Compass, Heart, Dog, Car } from 'lucide-react';
 
 const InsuranceRecommender = () => {
   const [selectedLifestyle, setSelectedLifestyle] = useState(null);
@@ -52,7 +52,7 @@ const InsuranceRecommender = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-4">나의 라이프스타일에 맞는 보험 찾기</h1>
+        <h1 className="text-3xl font-bold mb-4">나의 라이프스타일에 맞는 보험 찾아볼까요</h1>
         <p className="text-gray-600">당신의 라이프스타일을 선택하고 맞춤 보험 상품을 확인하세요</p>
       </div>
 
