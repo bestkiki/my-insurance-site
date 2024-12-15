@@ -18,10 +18,10 @@ const ConsultationForm = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwNAr4aL78gtlyKNZUvIgCBYb5PUkTglCLzqyfCr8yjTt2m5szhZwZL1yWx8iCM3v_h/exec', {
+      const response = await fetch(https://script.google.com/macros/s/AKfycbwbf0ZjRivnBp44v6SRhc1PD39SyRGLj0mSBEg1PqKKQshXPhpfLyTheq_bnN1pKNJz/exec, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           ...formData,
@@ -39,10 +39,11 @@ const ConsultationForm = ({ isOpen, onClose }) => {
           insuranceType: '',
           message: ''
         });
+      } else {
+        throw new Error('제출에 실패했습니다.');
       }
     } catch (error) {
       alert('오류가 발생했습니다. 다시 시도해주세요.');
-      console.error('Error:', error);
     } finally {
       setIsSubmitting(false);
     }
