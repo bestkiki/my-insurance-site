@@ -5,19 +5,16 @@ import { Compass, Heart, Dog, Car } from 'lucide-react';
 import ConsultationForm from './ConsultationForm';
 import { insuranceProducts } from '../data/insuranceData';
 
-
-// 컴포넌트 내부에서
-const getRandomProducts = (category, count = 2) => {
-  const products = insuranceProducts[category];
-  const shuffled = [...products].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-};
-
-
 const InsuranceRecommender = () => {
   const [selectedLifestyle, setSelectedLifestyle] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedInsuranceType, setSelectedInsuranceType] = useState('');
+
+  const getRandomProducts = (category, count = 2) => {
+    const products = insuranceProducts[category];
+    const shuffled = [...products].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
 
   const lifestyleOptions = [
     {
@@ -40,15 +37,13 @@ const InsuranceRecommender = () => {
       title: '건강 관리족',
       description: '건강과 운동을 중시하는 분',
       insuranceTypes: getRandomProducts('health')
-
     },
     {
-      id: 'driver',
+      id: 'car',
       icon: Car,
       title: '운전자',
       description: '자동차를 운전하시는 분',
-      insuranceTypes: getRandomProducts('driver')
-
+      insuranceTypes: getRandomProducts('car')
     }
   ];
 
@@ -56,7 +51,6 @@ const InsuranceRecommender = () => {
     setSelectedInsuranceType(insuranceType);
     setIsFormOpen(true);
   };
-
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -86,34 +80,34 @@ const InsuranceRecommender = () => {
       </div>
 
       {selectedLifestyle && (
-  <Card className="mb-8">
-    <CardHeader>
-      <CardTitle>추천 보험 상품</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <div className="space-y-4">
-        {selectedLifestyle.insuranceTypes.map((insurance, index) => (
-          <div key={index} className="border p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">{insurance.name}</h4>
-            <p className="text-gray-600 mb-2">보장: {insurance.coverage}</p>
-            <p className="text-blue-600 mb-2">월 {insurance.price}</p>
-            <ul className="mb-4 text-sm">
-              {insurance.benefits.map((benefit, i) => (
-                <li key={i} className="text-gray-600">✓ {benefit}</li>
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>추천 보험 상품</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {selectedLifestyle.insuranceTypes.map((insurance, index) => (
+                <div key={index} className="border p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">{insurance.name}</h4>
+                  <p className="text-gray-600 mb-2">보장: {insurance.coverage}</p>
+                  <p className="text-blue-600 mb-2">월 {insurance.price}</p>
+                  <ul className="mb-4 text-sm">
+                    {insurance.benefits.map((benefit, i) => (
+                      <li key={i} className="text-gray-600">✓ {benefit}</li>
+                    ))}
+                  </ul>
+                  <Button 
+                    className="w-full"
+                    onClick={() => handleConsultationClick(insurance.name)}
+                  >
+                    상담 신청하기
+                  </Button>
+                </div>
               ))}
-            </ul>
-            <Button 
-              className="w-full"
-              onClick={() => handleConsultationClick(insurance.name)}
-            >
-              상담 신청하기
-            </Button>
-          </div>
-        ))}
-      </div>
-    </CardContent>
-  </Card>
-)}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="bg-blue-50 p-6 rounded-lg">
         <h3 className="font-semibold mb-4">전문 상담사와 상담하기</h3>
