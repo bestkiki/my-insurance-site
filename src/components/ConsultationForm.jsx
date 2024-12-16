@@ -16,21 +16,17 @@ const ConsultationForm = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     try {
-      console.log('Submitting form:', formData); // 데이터 확인용 로그
-    
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwcjAPTKvkiobJzSOFDwBYEKh06NEU71FwsGIt4KTgWz6lqU6uJ7HFSZlTkZYhL5kWR/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbzEuHksh0j19IDd-HtJo8dRsdtTa95-c3igzxxR5nviSbpodNdRWvLOl2yXCIixyc-W/exec', {
         method: 'POST',
+        mode: 'cors',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(formData)
       });
-    
-      const result = await response.text(); // 응답 확인용
-      console.log('Response:', result);
-    
+  
       if (response.ok) {
         alert('상담 신청이 완료되었습니다. 곧 연락드리겠습니다.');
         onClose();
@@ -45,9 +41,12 @@ const ConsultationForm = ({ isOpen, onClose }) => {
         throw new Error('제출에 실패했습니다.');
       }
     } catch (error) {
-      console.error('Error details:', error); // 에러 상세 확인
+      console.error('Error:', error);
       alert('오류가 발생했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
