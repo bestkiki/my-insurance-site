@@ -45,7 +45,7 @@ const ConsultationForm = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <Card className="w-full max-w-md bg-white">
         <CardHeader>
-          <CardTitle>무료 상담 신청</CardTitle>
+          <CardTitle>무료 상담 신청하기</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
