@@ -18,21 +18,17 @@ const ConsultationForm = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
   
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwNAr4aL78gtlyKNZUvIgCBYb5PUkTglCLzqyfCr8yjTt2m5szhZwZL1yWx8iCM3v_h/exec', {
+      const response = await fetch(https://script.google.com/macros/s/AKfycbxn7eZljfXCTkQT8Atrvimr-PxeeQl0tWA84-jMkA48DeXAMIHjDmgj33f3NZJd_vGU/exec, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          insuranceType: formData.insuranceType,
-          message: formData.message
-        })
+        body: JSON.stringify(formData)
       });
   
-      if (response.ok) {
+      const result = await response.json();  // 응답 데이터 파싱
+      
+      if (result.status === "success") {
         alert('상담 신청이 완료되었습니다. 곧 연락드리겠습니다.');
         onClose();
         setFormData({
@@ -43,15 +39,12 @@ const ConsultationForm = ({ isOpen, onClose }) => {
           message: ''
         });
       } else {
-        throw new Error('제출에 실패했습니다.');
+        throw new Error(result.message || '제출에 실패했습니다.');
       }
     } catch (error) {
-      alert('오류가 발생했습니다. 다시 시도해주세요.');
       console.error('Error:', error);
-    } finally {
-      setIsSubmitting(false);
+      alert('오류가 발생했습니다. 다시 시도해주세요.');
     }
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
