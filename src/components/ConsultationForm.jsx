@@ -18,28 +18,25 @@ const ConsultationForm = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
   
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbzEuHksh0j19IDd-HtJo8dRsdtTa95-c3igzxxR5nviSbpodNdRWvLOl2yXCIixyc-W/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbytUzayeNTxxkf4ogicaR1jod8G_OjoyL3YpdiC6KoTI_MAkF7OFanR22wLu_KAS-yg/exec', {
         method: 'POST',
-        mode: 'cors',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain',
         },
         body: JSON.stringify(formData)
       });
   
-      if (response.ok) {
-        alert('상담 신청이 완료되었습니다. 곧 연락드리겠습니다.');
-        onClose();
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          insuranceType: '',
-          message: ''
-        });
-      } else {
-        throw new Error('제출에 실패했습니다.');
-      }
+      // no-cors 모드에서는 성공으로 간주
+      alert('상담 신청이 완료되었습니다. 곧 연락드리겠습니다.');
+      onClose();
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        insuranceType: '',
+        message: ''
+      });
     } catch (error) {
       console.error('Error:', error);
       alert('오류가 발생했습니다. 다시 시도해주세요.');
