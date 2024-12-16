@@ -16,27 +16,43 @@ const ConsultationForm = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-  
+
     try {
-      const response = await fetch(https://script.google.com/macros/s/AKfycbyknMkih_OLbLusV1OmNx2cSUU7fhr2qVrzEeSo-sVsjnVQeiDr_2sxYa65LeWpKkUY/exec, {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyknMkih_OLbLusV1OmNx2cSUU7fhr2qVrzEeSo-sVsjnVQeiDr_2sxYa65LeWpKkUY/exec', {
         method: 'POST',
         headers: {
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
-  
+
       if (response.ok) {
-        alert('성공!');
+        alert('상담 신청이 완료되었습니다. 곧 연락드리겠습니다.');
         onClose();
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          insuranceType: '',
+          message: ''
+        });
       } else {
-        throw new Error('Failed');
+        throw new Error('제출에 실패했습니다.');
       }
     } catch (error) {
-      alert('오류 발생');
+      alert('오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('Error:', error);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   if (!isOpen) return null;
@@ -45,7 +61,7 @@ const ConsultationForm = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <Card className="w-full max-w-md bg-white">
         <CardHeader>
-          <CardTitle>무료 상담 신청하기</CardTitle>
+          <CardTitle>무료 상담 신청</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
