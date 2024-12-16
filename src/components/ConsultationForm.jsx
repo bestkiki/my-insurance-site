@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 
-const ConsultationForm = ({ isOpen, onClose }) => {
+const ConsultationForm = ({ isOpen, onClose, defaultInsuranceType = '' }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    insuranceType: '',
+    insuranceType: defaultInsuranceType, // 기본값 설정
     message: ''
   });
 

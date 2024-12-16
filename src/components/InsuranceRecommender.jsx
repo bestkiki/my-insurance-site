@@ -1,12 +1,13 @@
-import React, { useState } from 'react';  // useState 추가
+import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Button } from './ui/button';
 import { Compass, Heart, Dog, Car } from 'lucide-react';
-import ConsultationForm from './ConsultationForm';  // 추가
+import ConsultationForm from './ConsultationForm';
 
 const InsuranceRecommender = () => {
   const [selectedLifestyle, setSelectedLifestyle] = useState(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);  // 추가
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedInsuranceType, setSelectedInsuranceType] = useState('');
 
   const lifestyleOptions = [
     {
@@ -51,6 +52,12 @@ const InsuranceRecommender = () => {
     }
   ];
 
+  const handleConsultationClick = (insuranceType) => {
+    setSelectedInsuranceType(insuranceType);
+    setIsFormOpen(true);
+  };
+
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="text-center mb-8">
@@ -89,7 +96,12 @@ const InsuranceRecommender = () => {
                 <div key={index} className="border p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">{insurance.name}</h4>
                   <p className="text-gray-600 mb-4">보장: {insurance.coverage}</p>
-                  <Button className="w-full">상담 신청하기</Button>
+                  <Button 
+                    className="w-full"
+                    onClick={() => handleConsultationClick(insurance.name)}
+                  >
+                    상담 신청하기
+                  </Button>
                 </div>
               ))}
             </div>
@@ -97,7 +109,7 @@ const InsuranceRecommender = () => {
         </Card>
       )}
 
-<div className="bg-blue-50 p-6 rounded-lg">
+      <div className="bg-blue-50 p-6 rounded-lg">
         <h3 className="font-semibold mb-4">전문 상담사와 상담하기</h3>
         <p className="text-gray-600 mb-4">
           더 자세한 상담이 필요하신가요? 전문 상담사가 도와드립니다.
@@ -105,16 +117,20 @@ const InsuranceRecommender = () => {
         <Button 
           variant="outline" 
           className="w-full"
-          onClick={() => setIsFormOpen(true)}  // 수정
+          onClick={() => {
+            setSelectedInsuranceType('');
+            setIsFormOpen(true);
+          }}
         >
           무료 상담 예약하기
         </Button>
       </div>
-      {/* 폼 컴포넌트 추가 */}
+
       {isFormOpen && (
         <ConsultationForm 
           isOpen={isFormOpen} 
-          onClose={() => setIsFormOpen(false)} 
+          onClose={() => setIsFormOpen(false)}
+          defaultInsuranceType={selectedInsuranceType}
         />
       )}
     </div>
